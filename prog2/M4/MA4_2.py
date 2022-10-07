@@ -4,10 +4,13 @@ from person import Person
 
 
 def fib(n):
+    print("hej")
     if n <= 1:
         return n
+
     else:
         return fib(n - 1) + fib(n - 2)
+
 
 
 
