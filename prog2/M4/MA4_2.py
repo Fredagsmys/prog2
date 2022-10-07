@@ -11,11 +11,10 @@ def fib(n):
 
 
 
-
 def main():
     f = Person(20)
     print(f.get())
-    f.set(25)
+    f.set(15)
     print(f.get())
     print(fib(f.get()))
 
