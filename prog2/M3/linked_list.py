@@ -2,7 +2,7 @@
 
 Student:
 Mail:
-Reviewed by:
+Reviewed by: Xiaoxia Liu
 Date reviewed:
 """
 import time
@@ -114,14 +114,14 @@ class LinkedList:
         return _count(self.first, x)
 
     def to_list(self):  # Compulsory
+        return self._to_list(self.first)
 
-        def _to_list(f):
-            if f is None:
-                return []
-            else:
-                return [f.data] + _to_list(f.succ)
+    def _to_list(self, f):
+        if f is None:
+            return []
+        else:
+            return [f.data] + self._to_list(f.succ)
 
-        return _to_list(self.first)
 
     def remove_all(self, x):  # Compulsory
         def _remove_all(f, x):

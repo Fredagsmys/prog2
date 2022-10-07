@@ -3,6 +3,7 @@
 Student:
 Mail:
 Reviewed by:
+Xiaoxia Liu
 Date reviewed:
 """
 
@@ -122,8 +123,8 @@ class BST:
 
     def height(self, ):  # Compulsory
         node = self.root
-        if node is None:
-            return 0
+       # if node is None:
+       #     return 0
 
         def _height(node):
             if node is None:
@@ -233,8 +234,8 @@ def main():
 
     # for k in [0, 1, 2, 5, 9]:
     #    print(f"contains({k}): {t.contains(k)}")
-    start = 10
-    stop = 400
+    start = 100
+    stop = 600
     step = 1
     const = -1.6
 
@@ -250,13 +251,13 @@ def main():
         xvals.append(n)
 
     for n in range(start, stop):
-        print(ests[n - start] - ipls[n - start]) # show that difference stays constant
+        print(ests[(n - start)//step] - ipls[(n - start)//step]) # show that difference stays constant
 
-    # could also show that
-    # plt.plot(xvals, ipls,'r--', xvals,ests,'g')
-    # plt.xscale('log')
-    # plt.show()
-    # ipl/n => 1.39 * log2(n) + c
+   #could also show that
+    plt.plot(xvals, ipls,'r--', xvals,ests,'g')
+    plt.xscale('log')
+    plt.show()
+    #ipl/n => 1.39 * log2(n) + c
 
 
 if __name__ == "__main__":

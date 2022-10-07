@@ -2,11 +2,23 @@
 
 from person import Person
 
+
+def fib(n):
+    if n <= 1:
+        return n
+    else:
+        return fib(n - 1) + fib(n - 2)
+
+
+
+
 def main():
-	f = Person(5)
-	print(f.get())
-	f.set(7)
-	print(f.get())
+    f = Person(20)
+    print(f.get())
+    f.set(25)
+    print(f.get())
+    print(fib(f.get()))
+
 
 if __name__ == '__main__':
-	main()
+    main()
