@@ -3,17 +3,13 @@
 from person import Person
 
 
-def fib(_val):
-    cache = {0: 0, 1: 1}
-
-    def _fib(val):
-        if val in cache:
-            return cache.get(val)
-
-        cache[val] = _fib(val - 1) + _fib(val - 2)
-        return cache[val]
-
-    return _fib(_val)
+def fib(val):
+	if val == 0:
+		return 0
+	elif val == 1:
+		return 1
+	else:
+    		return fib(val - 1) + fib(val - 2)
 
 
 def main():
@@ -21,7 +17,7 @@ def main():
     print(f.get())
     f.set(25)
     print(f.get())
-    print(fib(f.get()))
+    print("fib of",f.get(),"is", fib(f.get()))
 
 
 if __name__ == '__main__':
