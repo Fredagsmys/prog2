@@ -4,12 +4,12 @@ from person import Person
 
 
 def fib(val):
-	if val == 0:
-		return 0
-	elif val == 1:
-		return 1
-	else:
-    		return fib(val - 1) + fib(val - 2)
+    if val == 0:
+        return 0
+    elif val == 1:
+        return 1
+    else:
+        return fib(val - 1) + fib(val - 2)
 
 
 def main():
