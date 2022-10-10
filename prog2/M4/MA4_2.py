@@ -31,6 +31,7 @@ def main():
     print(f.get())
     ages = [30, 35, 40, 45]
     for age in ages:
+        f.set(age)
         s = timer()
         print("python fib of", age, "is", fib(age))
         e = timer()
