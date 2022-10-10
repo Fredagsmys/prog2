@@ -25,7 +25,7 @@ void Person::set(int n){
 	}
 
 int Person::fib(){
-    return _fib(Person::get());
+    return _fib(this.get());
 }
 
 int _fib(int val){
