@@ -3,6 +3,8 @@
 from person import Person
 from numba import njit
 
+from prog2.M4 import person
+
 
 @njit
 def fib_numba(val):
@@ -29,9 +31,9 @@ def main():
     f.set(25)
     print(f.get())
     age = f.get()
-    print("fib of",age,"is", fib(age))
-    print("fib of", age, "is", fib_numba(age))
-    print("fib of", age, "is", fib_numba(age))
+    print("python fib of",age,"is", fib(age))
+    print("numba fib of", age, "is", fib_numba(age))
+    print("c++ fib of", age, "is", f.fib())
 
 
 if __name__ == '__main__':
