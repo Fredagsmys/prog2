@@ -2,6 +2,7 @@
 
 from person import Person
 from numba import njit
+from time import perf_counter as timer
 
 
 @njit
@@ -28,10 +29,22 @@ def main():
     print(f.get())
     f.set(25)
     print(f.get())
-    age = f.get()
-    print("python fib of", age, "is", fib(age))
-    print("numba fib of", age, "is", fib_numba(age))
-    print("c++ fib of", age, "is", f.fib())
+    ages = [30, 35, 40, 45]
+    for age in ages:
+        s = timer()
+        print("python fib of", age, "is", fib(age))
+        e = timer()
+        print(f"time for fib({age}) is {e - s}s with python")
+
+        s = timer()
+        print("numba fib of", age, "is", fib_numba(age))
+        e = timer()
+        print(f"time for fib({age}) is {e - s}s with numba")
+
+        s = timer()
+        print("c++ fib of", age, "is", f.fib())
+        e = timer()
+        print(f"time for fib({age}) is {e - s}s with c++")
 
 
 if __name__ == '__main__':
