@@ -3,7 +3,6 @@
 from person import Person
 from numba import njit
 
-from prog2.M4 import person
 
 
 @njit
