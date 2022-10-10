@@ -28,7 +28,7 @@ int Person::fib(){
     return _fib(Person::get());
 }
 
-int _fib(int val){
+int Person::_fib(int val){
     if (val == 0){
         return 0;
         }
