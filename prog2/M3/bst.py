@@ -1,10 +1,10 @@
 """ bst.py
 
-Student:
-Mail:
+Student: Maximilian Mattsson
+Mail: max.mattsson00@gmail.com
 Reviewed by:
 Xiaoxia Liu
-Date reviewed:
+Date reviewed: 7 oct
 """
 
 from linked_list import LinkedList

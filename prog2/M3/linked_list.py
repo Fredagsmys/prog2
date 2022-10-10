@@ -1,9 +1,10 @@
 """ linked_list.py
 
-Student:
-Mail:
-Reviewed by: Xiaoxia Liu
-Date reviewed:
+Student: Maximilian Mattsson
+Mail: max.mattsson00@gmail.com
+Reviewed by:
+Xiaoxia Liu
+Date reviewed: 7 oct
 """
 import time
 
