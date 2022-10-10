@@ -4,7 +4,6 @@ from person import Person
 from numba import njit
 
 
-
 @njit
 def fib_numba(val):
     if val == 0:
@@ -12,7 +11,7 @@ def fib_numba(val):
     elif val == 1:
         return 1
     else:
-        return fib(val - 1) + fib(val - 2)
+        return fib_numba(val - 1) + fib_numba(val - 2)
 
 
 def fib(val):
@@ -30,7 +29,7 @@ def main():
     f.set(25)
     print(f.get())
     age = f.get()
-    print("python fib of",age,"is", fib(age))
+    print("python fib of", age, "is", fib(age))
     print("numba fib of", age, "is", fib_numba(age))
     print("c++ fib of", age, "is", f.fib())
 
