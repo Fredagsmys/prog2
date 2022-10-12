@@ -15,18 +15,19 @@ class Simulation:
         self.width = 1000
         self.height = 800
         self.gui.canvas = tk.Canvas(self.gui, width=self.width, height=self.height, borderwidth=0, highlightthickness=0,
-                                bg="black")
+                                    bg="black")
         speed_entry = ttk.Entry(master=self.gui, textvariable=self.gui.speed)
-        start_entry = ttk.Button(text="Start", command= lambda :self.gui.started.set(self.gui.started.get()))
+        start_entry = ttk.Button(text="Start", command=lambda: self.gui.started.set(not self.gui.started.get()))
         self.gui.started.set(True)
         self.gui.speed.set(1)
         speed_entry.pack()
+        start_entry.pack()
 
         self.time = 0
         rad = 20
         self.balls = [Ball.Ball(radius=rad * (rand.random() + 1),
-                                spd_x=1+rand.random(),
-                                spd_y=1+rand.random(),
+                                spd_x=1 + rand.random(),
+                                spd_y=1 + rand.random(),
                                 pos_x=rand.randint(rad, self.width - rad),
                                 pos_y=rand.randint(rad, self.height - rad),
                                 color='blue') for _ in range(balls)]
@@ -37,7 +38,7 @@ class Simulation:
 
     def start(self):
         self.gui.curr_speed = self.gui.speed.get()
-        self.started = True
+
         self.gui.canvas.pack()
 
         self.spawn_obj()
@@ -46,17 +47,21 @@ class Simulation:
         self.step()
 
     def animate(self):
-        if self.started:
+        if self.gui.started.get():
             self.step()
             self.update()
             self.gui.canvas.after(1, self.animate)
+        else:
+            self.gui.canvas.after(10, self.start())
+
 
     def update(self):
 
         for ball in self.balls:
             rad = ball.radius
-            self.gui.canvas.coords(ball.get_obj(), ball.get_pos_x() - rad, ball.get_pos_y() - rad, ball.get_pos_x() + rad,
-                               ball.get_pos_y() + rad)
+            self.gui.canvas.coords(ball.get_obj(), ball.get_pos_x() - rad, ball.get_pos_y() - rad,
+                                   ball.get_pos_x() + rad,
+                                   ball.get_pos_y() + rad)
 
             coords = self.gui.canvas.coords(ball.get_obj())
             if coords[0] <= 0:
@@ -74,10 +79,10 @@ class Simulation:
     def spawn_obj(self):
         for ball in self.balls:
             ball.set_obj(self.gui.canvas.create_oval(ball.pos[0] - ball.radius,
-                                                 ball.pos[1] - ball.radius,
-                                                 ball.pos[0] + ball.radius,
-                                                 ball.pos[1] + ball.radius,
-                                                 fill='blue'))
+                                                     ball.pos[1] - ball.radius,
+                                                     ball.pos[0] + ball.radius,
+                                                     ball.pos[1] + ball.radius,
+                                                     fill='blue'))
 
     def step(self):
         self.time += 1

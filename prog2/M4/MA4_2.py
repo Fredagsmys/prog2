@@ -38,7 +38,7 @@ def main():
     #f.set(47)
     print(f.get())
     f.fib()
-    ages = [30, 35, 40]
+    ages = [30, 35, 40, 45]
     py_res = []
     numba_res = []
     c_res = []
