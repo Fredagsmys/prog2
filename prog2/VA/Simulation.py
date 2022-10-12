@@ -28,7 +28,7 @@ class Simulation:
 
         speed_entry = ttk.Entry(master=self.gui, textvariable=self.gui.speed)
         balls_entry = ttk.Entry(master=self.gui, textvariable=self.gui.balls)
-        pause_entry = ttk.Button(text="Play/Pause", command=lambda: self.gui.paused.set(not self.gui.paused.get()))
+        pause_entry = ttk.Button(text="Pause/Unpause", command=lambda: self.gui.paused.set(not self.gui.paused.get()))
         start_entry = ttk.Button(text="Start/Stop", command=lambda: self.gui.started.set(not self.gui.started.get()))
         self.gui.started.set(True)
         self.gui.speed.set(1)

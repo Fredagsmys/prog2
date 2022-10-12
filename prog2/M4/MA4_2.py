@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.9
 '''
 Student: Max Mattsson
-mail:
+mail: max.mattsson00@gmail.com
 Reviewed by: Xiaoxia
 date: 2022-10-12
 
