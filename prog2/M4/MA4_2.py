@@ -35,10 +35,10 @@ def fib(val):
 def main():
     f = Person(20)
     print(f.get())
-    f.set(47)
+    #f.set(47)
     print(f.get())
     f.fib()
-    ages = [30, 35]
+    ages = [30, 35, 40]
     py_res = []
     numba_res = []
     c_res = []
@@ -64,8 +64,9 @@ def main():
         print("c++ fib of", age, "is", c_fib)
         e = timer()
         print(f"time for fib({age}) is {e - s}s with c++")
-    plt.plot(ages, py_res, numba_res, c_res)
-
+    plt.plot(ages, py_res)
+    plt.plot(ages, numba_res)
+    plt.plot(ages, c_res)
     plt.savefig('fib_results')
 
 
