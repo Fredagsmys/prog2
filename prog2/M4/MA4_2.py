@@ -67,11 +67,11 @@ def main():
         e = timer()
         c_res.append(e-s)
         print(f"time for fib({age}) is {e - s}s with c++")
-    plt.plot(ages, py_res)
-    plt.plot(ages, numba_res)
-    plt.plot(ages, c_res)
+    plt.plot(ages, py_res, label="python")
+    plt.plot(ages, numba_res, label="numba")
+    plt.plot(ages, c_res, label="c++")
 
-    plt.savefig('fib_results_2')
+    plt.savefig('fib_results')
 
 
 if __name__ == '__main__':
