@@ -33,26 +33,25 @@ class Simulation:
                                 color='blue') for _ in range(balls)]
 
         if self.gui.started.get():
+            self.gui.canvas.pack()
+            self.spawn_obj()
             self.start()
         self.gui.canvas.mainloop()
 
     def start(self):
         self.gui.curr_speed = self.gui.speed.get()
-
-        self.gui.canvas.pack()
-
-        self.spawn_obj()
         self.animate()
 
-        self.step()
+
 
     def animate(self):
         if self.gui.started.get():
+
             self.step()
             self.update()
             self.gui.canvas.after(1, self.animate)
         else:
-            self.gui.canvas.after(10, self.start())
+            self.gui.canvas.after(1, self.start)
 
 
     def update(self):
