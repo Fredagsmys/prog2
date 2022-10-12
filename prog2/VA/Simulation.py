@@ -94,18 +94,24 @@ class Simulation:
 
                 print("ball1_spd",ball1.speed)
                 print("ball2_spd",ball2.speed)
-                print(ball1, ball2)
+                print("ball1_pos", ball1.pos)
+                print("ball2_pos", ball2.pos)
+                #print(ball1, ball2)
+                print(numpy.linalg.norm(ball2.pos - ball1.pos, 1))
+                print(numpy.linalg.norm(ball2.pos - ball1.pos, 2))
+                print(numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))
                 print("second",(numpy.dot(ball2.speed - ball1.speed, ball2.pos - ball1.pos) / (
                         numpy.linalg.norm(ball2.pos - ball1.pos, 2)) * (ball2.pos - ball1.pos)))
+
                 b1_spd = ball1.speed
                 b2_spd = ball2.speed
-                ball1.speed = ball1.speed + 1/200*(numpy.dot(b2_spd - b1_spd, ball2.pos - ball1.pos) / (
-                            numpy.linalg.norm(ball2.pos - ball1.pos, 2))) * (ball2.pos - ball1.pos)
+                ball1.speed = ball1.speed + (numpy.dot(b2_spd - b1_spd, ball2.pos - ball1.pos) / (
+                            numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))) * (ball2.pos - ball1.pos)
 
-                ball2.speed = ball2.speed + 1/200*(numpy.dot(b1_spd - b2_spd, ball2.pos - ball1.pos) / (
-                            numpy.linalg.norm(ball2.pos - ball1.pos,2))) * (ball2.pos - ball1.pos)
+                ball2.speed = ball2.speed + (numpy.dot(b1_spd - b2_spd, ball2.pos - ball1.pos) / (
+                            numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))) * (ball2.pos - ball1.pos)
 
-                return
+                return # return becuase dont want to calculate more collisions before stepping
 
 
 
