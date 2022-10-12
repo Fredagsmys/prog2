@@ -58,7 +58,6 @@ class Simulation:
             self.gui.canvas.after(1, self.start)
 
     def update(self):
-        toremove = []
         for ball in self.balls:
             rad = ball.radius
             self.gui.canvas.coords(ball.get_obj(), ball.get_pos_x() - rad, ball.get_pos_y() - rad,
@@ -66,14 +65,19 @@ class Simulation:
                                    ball.get_pos_y() + rad)
 
             coords = self.gui.canvas.coords(ball.get_obj())
-            print(coords)
 
-            collision = list(self.gui.canvas.find_overlapping(coords[0],coords[1],coords[2],coords[3]))
+            collision = list(self.gui.canvas.find_overlapping(coords[0], coords[1], coords[2], coords[3]))
             collision.remove(ball.get_obj())
-            #print(collision)
+
             if len(collision) != 0:
                 for coll in collision:
-                    toremove.append(coll)
+                    self.gui.canvas.delete(coll)
+                    for ball in self.balls:
+                        if ball.get_obj() == coll:
+                            self.balls.remove(ball)
+
+
+
             if coords[0] <= 0:
                 ball.set_spd_x(-ball.get_spd_x())
 
@@ -86,13 +90,7 @@ class Simulation:
             elif coords[1] + 2 * rad >= self.height:
                 ball.set_spd_y(-abs(ball.get_spd_y()))
 
-        for delball in toremove:
-            print("1")
-            self.gui.canvas.delete(delball)
-            for ball in self.balls:
-                if ball.get_obj() == delball:
-                    print("2")
-                    self.balls.remove(ball)
+
 
     def clear_obj(self):
         if self.balls is not None:
