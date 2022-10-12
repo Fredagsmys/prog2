@@ -104,6 +104,7 @@ class Simulation:
 
                 ball2.speed = ball2.speed + 1/200*(numpy.dot(b1_spd - b2_spd, ball2.pos - ball1.pos) / (
                             numpy.linalg.norm(ball2.pos - ball1.pos,2))) * (ball2.pos - ball1.pos)
+
                 return
 
 
