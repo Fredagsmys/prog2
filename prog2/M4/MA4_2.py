@@ -67,7 +67,8 @@ def main():
     plt.plot(ages, py_res)
     plt.plot(ages, numba_res)
     plt.plot(ages, c_res)
-    plt.savefig('fib_results')
+
+    plt.savefig('fib_results_2')
 
 
 if __name__ == '__main__':
