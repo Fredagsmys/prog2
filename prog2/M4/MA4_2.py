@@ -1,8 +1,17 @@
 #!/usr/bin/env python3.9
+'''
+Student: Max Mattsson
+mail:
+Reviewed by: Xiaoxia
+date: 2022-10-12
+
+'''
+
 
 from person import Person
 from numba import njit
 from time import perf_counter as timer
+import matplotlib.pyplot as plt
 
 
 @njit
@@ -30,24 +39,34 @@ def main():
     f.set(47)
     print(f.get())
     f.fib()
-    #ages = [30, 35, 40, 45]
-    #for age in ages:
-        #f.set(age)
-        #s = timer()
-        #print("python fib of", age, "is", fib(age))
-        #e = timer()
-        #print(f"time for fib({age}) is {e - s}s with python")
+    ages = [30, 35]
+    py_res = []
+    numba_res = []
+    c_res = []
+    for age in ages:
+        f.set(age)
+        s = timer()
+        py_fib = fib(age)
+        py_res.append(py_fib)
+        print("python fib of", py_fib, "is", )
+        e = timer()
+        print(f"time for fib({age}) is {e - s}s with python")
 
-#        s = timer()
-#        print("numba fib of", age, "is", fib_numba(age))
-#        e = timer()
-#        print(f"time for fib({age}) is {e - s}s with numba")
+        s = timer()
+        num_fib = fib_numba(age)
+        numba_res.append(num_fib)
+        print("numba fib of", age, "is", num_fib)
+        e = timer()
+        print(f"time for fib({age}) is {e - s}s with numba")
 
-        #s = timer()
-        #print("c++ fib of", age, "is", f.fib())
-        #e = timer()
-        #print(f"time for fib({age}) is {e - s}s with c++")
-
+        s = timer()
+        c_fib = f.fib()
+        c_res.append(c_fib)
+        print("c++ fib of", age, "is", c_fib)
+        e = timer()
+        print(f"time for fib({age}) is {e - s}s with c++")
+    plt.plot([py_res],[numba_res],[c_res])
+    plt.savefig('fib_results')
 
 if __name__ == '__main__':
     main()
