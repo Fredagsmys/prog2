@@ -7,7 +7,6 @@ date: 2022-10-12
 
 '''
 
-
 from person import Person
 from numba import njit
 from time import perf_counter as timer
@@ -65,8 +64,10 @@ def main():
         print("c++ fib of", age, "is", c_fib)
         e = timer()
         print(f"time for fib({age}) is {e - s}s with c++")
-    plt.plot([py_res],[numba_res],[c_res])
+    plt.plot(ages, py_res, numba_res, c_res)
+
     plt.savefig('fib_results')
+
 
 if __name__ == '__main__':
     main()
