@@ -21,11 +21,6 @@ class Simulation:
         self.gui.canvas = tk.Canvas(self.gui, width=self.width, height=self.height, borderwidth=0, highlightthickness=0,
                                     bg="black")
 
-
-
-
-
-
         speed_entry = ttk.Entry(master=self.gui, textvariable=self.gui.speed)
         balls_entry = ttk.Entry(master=self.gui, textvariable=self.gui.balls)
         pause_entry = ttk.Button(text="Pause/Unpause", command=lambda: self.gui.paused.set(not self.gui.paused.get()))
@@ -52,25 +47,18 @@ class Simulation:
             self.gui.curr_speed = self.gui.speed.get()
         self.animate()
 
-
-    def play(self):
-        self.animate()
-
-
-
     def animate(self):
-        if not self.gui.paused.get() and self.gui.started.get(): #if sim is not paused and started
+        if not self.gui.paused.get() and self.gui.started.get():  # if sim is started and not paused
             self.step()
             self.update()
             self.gui.canvas.after(1, self.animate)
-        elif self.gui.paused.get(): #if sim is paused
-            self.gui.canvas.after(1, self.play)
-        else: #if sim is stopped
+        elif self.gui.paused.get():  # if sim is paused
+            self.gui.canvas.after(1, self.animate)
+        else:  # if sim is stopped
             self.gui.canvas.after(1, self.start)
 
-
     def update(self):
-
+        toremove = []
         for ball in self.balls:
             rad = ball.radius
             self.gui.canvas.coords(ball.get_obj(), ball.get_pos_x() - rad, ball.get_pos_y() - rad,
@@ -78,6 +66,14 @@ class Simulation:
                                    ball.get_pos_y() + rad)
 
             coords = self.gui.canvas.coords(ball.get_obj())
+            print(coords)
+
+            collision = list(self.gui.canvas.find_overlapping(coords[0],coords[1],coords[2],coords[3]))
+            collision.remove(ball.get_obj())
+            #print(collision)
+            if len(collision) != 0:
+                for coll in collision:
+                    toremove.append(coll)
             if coords[0] <= 0:
                 ball.set_spd_x(-ball.get_spd_x())
 
@@ -90,6 +86,13 @@ class Simulation:
             elif coords[1] + 2 * rad >= self.height:
                 ball.set_spd_y(-abs(ball.get_spd_y()))
 
+        for delball in toremove:
+            print("1")
+            self.gui.canvas.delete(delball)
+            for ball in self.balls:
+                if ball.get_obj() == delball:
+                    print("2")
+                    self.balls.remove(ball)
 
     def clear_obj(self):
         if self.balls is not None:
@@ -100,13 +103,12 @@ class Simulation:
         rad = 20
 
         self.balls = [Ball.Ball(radius=rad * (rand.random() + 1),
-                                spd_x=1 + rand.random(),
-                                spd_y=1 + rand.random(),
+                                spd_x=(1 + 4*rand.random()/5),
+                                spd_y=(1 + 4*rand.random()/5),
                                 pos_x=rand.randint(rad, self.width - rad),
                                 pos_y=rand.randint(rad, self.height - rad),
                                 color='blue') for _ in range(self.gui.balls.get())]
         for ball in self.balls:
-
             ball.set_obj(self.gui.canvas.create_oval(ball.pos[0] - ball.radius,
                                                      ball.pos[1] - ball.radius,
                                                      ball.pos[0] + ball.radius,
@@ -126,7 +128,6 @@ class Simulation:
 
 def main():
     sim = Simulation()
-
     # sim.start()
 
 
