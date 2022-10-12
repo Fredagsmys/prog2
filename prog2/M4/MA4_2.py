@@ -46,23 +46,26 @@ def main():
         f.set(age)
         s = timer()
         py_fib = fib(age)
-        py_res.append(py_fib)
+
         print("python fib of", py_fib, "is", )
         e = timer()
+        py_res.append(e-s)
         print(f"time for fib({age}) is {e - s}s with python")
 
         s = timer()
         num_fib = fib_numba(age)
-        numba_res.append(num_fib)
+
         print("numba fib of", age, "is", num_fib)
         e = timer()
+        numba_res.append(e-s)
         print(f"time for fib({age}) is {e - s}s with numba")
 
         s = timer()
         c_fib = f.fib()
-        c_res.append(c_fib)
+
         print("c++ fib of", age, "is", c_fib)
         e = timer()
+        c_res.append(e-s)
         print(f"time for fib({age}) is {e - s}s with c++")
     plt.plot(ages, py_res)
     plt.plot(ages, numba_res)
