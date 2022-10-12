@@ -27,25 +27,26 @@ def fib(val):
 def main():
     f = Person(20)
     print(f.get())
-    f.set(25)
+    f.set(47)
     print(f.get())
-    ages = [30, 35, 40, 45]
-    for age in ages:
-        f.set(age)
-        s = timer()
-        print("python fib of", age, "is", fib(age))
-        e = timer()
-        print(f"time for fib({age}) is {e - s}s with python")
+    f.fib()
+    #ages = [30, 35, 40, 45]
+    #for age in ages:
+        #f.set(age)
+        #s = timer()
+        #print("python fib of", age, "is", fib(age))
+        #e = timer()
+        #print(f"time for fib({age}) is {e - s}s with python")
 
-        s = timer()
-        print("numba fib of", age, "is", fib_numba(age))
-        e = timer()
-        print(f"time for fib({age}) is {e - s}s with numba")
+#        s = timer()
+#        print("numba fib of", age, "is", fib_numba(age))
+#        e = timer()
+#        print(f"time for fib({age}) is {e - s}s with numba")
 
-        s = timer()
-        print("c++ fib of", age, "is", f.fib())
-        e = timer()
-        print(f"time for fib({age}) is {e - s}s with c++")
+        #s = timer()
+        #print("c++ fib of", age, "is", f.fib())
+        #e = timer()
+        #print(f"time for fib({age}) is {e - s}s with c++")
 
 
 if __name__ == '__main__':

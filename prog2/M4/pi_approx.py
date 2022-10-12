@@ -31,11 +31,11 @@ def calc_pi(n):
 def approx_pi():
     # n = [x**10 for x in range(2, 6)]
     # pis = [4*calc_pi(n)/n for n in n]
-    n = 10 ** 4
+    n = 10 ** 5
     res, xcor_c, ycor_c, xcor_s, ycor_s = calc_pi(n)
     picalc = 4 * res / n
     print("math.pi:", math.pi, "vs montecarlo pi:", picalc)
-    plt.plot(xcor_c, ycor_c, 'b.', xcor_s, ycor_s, 'r.')
+    plt.plot(xcor_c, ycor_c, 'r.', xcor_s, ycor_s, 'b.')
     plt.show()
 
 
@@ -79,10 +79,12 @@ def para_hypersphere(n, dim, cores):
 
 
 def main():
+    #approx_pi()
+    #return
     #    approx_pi()
     n = 1000000
     d = 11
-    cores = 6
+    cores = 4
     #    print(hypersphere(n, d))
     #    print()
     #    n = 100000
