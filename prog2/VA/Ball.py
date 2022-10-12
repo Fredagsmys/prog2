@@ -5,8 +5,8 @@ class Ball:
 
     def __init__(self, radius, spd_x, spd_y, pos_x, pos_y, color):
         self.radius = radius
-        self.speed = np.array([spd_x, spd_y])
-        self.pos = np.array([pos_x, pos_y])
+        self.speed = np.array([spd_x, spd_y]).astype(float)
+        self.pos = np.array([pos_x, pos_y]).astype(float)
         self.color = color
         self.object = None
 
@@ -31,9 +31,9 @@ class Ball:
     def set_spd_x(self, spd):
         self.speed[0] = spd
 
+
     def set_spd_y(self, spd):
         self.speed[1] = spd
-
     def set_obj(self, obj):
         self.object = obj
 
