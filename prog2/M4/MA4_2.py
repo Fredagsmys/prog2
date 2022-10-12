@@ -70,7 +70,7 @@ def main():
     plt.plot(ages, py_res, label="python")
     plt.plot(ages, numba_res, label="numba")
     plt.plot(ages, c_res, label="c++")
-
+    plt.legend()
     plt.savefig('fib_results')
 
 
