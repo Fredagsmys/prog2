@@ -9,6 +9,7 @@ class Ball:
         self.pos = np.array([pos_x, pos_y]).astype(float)
         self.color = color
         self.object = None
+        self.updated = False
 
     def get_pos_x(self):
         return self.pos[0]
