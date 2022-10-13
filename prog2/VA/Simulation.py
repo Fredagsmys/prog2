@@ -18,7 +18,7 @@ class Simulation:
         self.gui.speed = tk.DoubleVar()
         self.timestep = 0.1
         self.width = 1000
-        self.height = 800
+        self.height = 700
         self.time = 0
 
         self.gui.canvas = tk.Canvas(self.gui, width=self.width, height=self.height, borderwidth=0, highlightthickness=0,
@@ -52,15 +52,16 @@ class Simulation:
 
     def animate(self):
         if not self.gui.paused.get() and self.gui.started.get():  # if sim is started and not paused
-            self.update()
-            self.step()
+            self.move_balls()   # update positions on canvas
+            self.update()       # calculate new speeds
+            self.step()         # update the position of the balls
             self.gui.canvas.after(1, self.animate)
         elif self.gui.paused.get():  # if sim is paused
             self.gui.canvas.after(1, self.animate)
         else:  # if sim is stopped
             self.gui.canvas.after(1, self.start)
 
-    def update(self):
+    def move_balls(self):
         for ball in self.balls:
             rad = ball.radius
 
@@ -68,8 +69,10 @@ class Simulation:
                                    ball.get_pos_x() + rad,
                                    ball.get_pos_y() + rad)
 
-            rad = ball.radius
+    def update(self):
 
+        for ball in self.balls:
+            rad = ball.radius
             coords = self.gui.canvas.coords(ball.get_obj())
 
             if coords[0] <= 0:
@@ -83,35 +86,37 @@ class Simulation:
 
             collision = list(self.gui.canvas.find_overlapping(coords[0], coords[1], coords[2], coords[3]))
             if len(collision) == 2:
+                ball1 = None
+                ball2 = None
                 for c in collision:  # find which ball is the one in the current loop iteration. Then set that one to ball1. And then we update this balls speed and not the one that ball1 is colliding with.
                     if ball.get_obj() == c:
                         ball1 = ball
                     for b in self.balls:
                         if b.get_obj() == c and b != ball:
                             ball2 = b
+                if not ball1.updated and not ball2.updated:
+                    ball1.updated = True
+                    ball2.updated = True
 
+                    print("ball1_spd",ball1.speed)
+                    print("ball2_spd",ball2.speed)
+                    print("ball1_pos", ball1.pos)
+                    print("ball2_pos", ball2.pos)
+                    #print(ball1, ball2)
+                    print(numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))
+                    print("second",(numpy.dot(ball2.speed - ball1.speed, ball2.pos - ball1.pos) / (
+                            numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))))
 
+                    b1_spd = ball1.speed
+                    b2_spd = ball2.speed
+                    ball1.speed = ball1.speed + (numpy.dot(b2_spd - b1_spd, ball2.pos - ball1.pos) / (
+                                numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))) * (ball2.pos - ball1.pos)
 
-                print("ball1_spd",ball1.speed)
-                print("ball2_spd",ball2.speed)
-                print("ball1_pos", ball1.pos)
-                print("ball2_pos", ball2.pos)
-                #print(ball1, ball2)
-                print(numpy.linalg.norm(ball2.pos - ball1.pos, 1))
-                print(numpy.linalg.norm(ball2.pos - ball1.pos, 2))
-                print(numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))
-                print("second",(numpy.dot(ball2.speed - ball1.speed, ball2.pos - ball1.pos) / (
-                        numpy.linalg.norm(ball2.pos - ball1.pos, 2)) * (ball2.pos - ball1.pos)))
-
-                b1_spd = ball1.speed
-                b2_spd = ball2.speed
-                ball1.speed = ball1.speed + (numpy.dot(b2_spd - b1_spd, ball2.pos - ball1.pos) / (
-                            numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))) * (ball2.pos - ball1.pos)
-
-                ball2.speed = ball2.speed + (numpy.dot(b1_spd - b2_spd, ball2.pos - ball1.pos) / (
-                            numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))) * (ball2.pos - ball1.pos)
-
-                return # return becuase dont want to calculate more collisions before stepping
+                    ball2.speed = ball2.speed + (numpy.dot(b1_spd - b2_spd, ball2.pos - ball1.pos) / (
+                                numpy.dot(numpy.absolute(ball2.pos - ball1.pos),numpy.absolute(ball2.pos - ball1.pos)))) * (ball2.pos - ball1.pos)
+        for ball in self.balls:
+            ball.updated = False
+               # return # return becuase dont want to calculate more collisions before stepping
 
 
 
@@ -148,8 +153,7 @@ class Simulation:
             ball.pos += self.gui.curr_speed * self.timestep * ball.speed
 
 def main():
-    sim = Simulation()
-    # sim.start()
+    Simulation()
 
 
 if __name__ == "__main__":
