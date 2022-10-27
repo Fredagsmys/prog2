@@ -36,6 +36,25 @@ def power_fast(x, n):
         else:
             return power_fast(x, n // 2) * power_fast(x, n // 2) * x
 
+def power_fast_iter(x,n):
+    # if n is odd it goes straight to here and does regular power, but then it also does one more
+    # in bottom. Should make this function to check if its odd or even every time and do operation based on
+    # that every iteration
+    p=1
+    counter = 1
+    if n >= 0:
+        while n%2 == 0:
+            n = n//2
+            counter+=1
+
+        for _ in range(n):
+            p *= x
+        p = power(p, counter)
+        if n % 2 != 0: #if odd
+            p *= x
+    else:
+        pass
+    return p
 
 def multiply(m, n):  # Compulsory
 
@@ -150,8 +169,10 @@ def main():
     """ Demonstates my implementations """
     # Write your demonstration code here
     print(f"exchange: {exchange(10, [1, 2])}")
-    print(power(3, 4))
-    print(power_fast(3, -4))
+    n = 7
+    print(power(3, n))
+    print(power_fast(3, n))
+    print(power_fast_iter(3, n))
     print(multiply(2, 2))
     print(divide(10, 2))
     print(harmonic(4))
