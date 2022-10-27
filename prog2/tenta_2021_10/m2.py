@@ -85,7 +85,7 @@ def assignment(wtok):
         wtok.next()
         if wtok.is_name():
             tempvars[wtok.get_current()] = result
-            #variables[wtok.get_current()] = result
+            #variables[wtok.get_current()] = result #ÄNDRADE HÄR
         else:
             raise SyntaxError("Expected name after '=' ", wtok)
         wtok.next()
@@ -174,7 +174,7 @@ def vars_print():
 
 
 def file_name(wtok):
-    file = 'test.txt'
+    file = "C:/Users/Max/PycharmProjects/prog2/tenta_2021_10/test.txt"
     if wtok.is_name():
         file = wtok.get_current()
         wtok.next()
