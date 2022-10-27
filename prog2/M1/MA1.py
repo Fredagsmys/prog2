@@ -19,9 +19,22 @@ def power(x, n):  # Optional
         return 1
 
     if n < 0:
-        pass
+        return power(1 / x, n)
 
-    return power(x, n-1) * x
+    return power(x, n - 1) * x
+
+
+def power_fast(x, n):
+    if n == 0:
+        return 1
+    if n < 0:
+        return power_fast(1 / x, n * -1)
+    else:
+        # if even x^n = (x^n/2)^2 and if odd: x^n = x*(x^n/2)^2
+        if n % 2 == 0:
+            return power_fast(x, n // 2) * power_fast(x, n // 2)
+        else:
+            return power_fast(x, n // 2) * power_fast(x, n // 2) * x
 
 
 def multiply(m, n):  # Compulsory
@@ -113,7 +126,7 @@ def fib(n):
 def fibtiming(fib):
     times = []
     print(fib.__name__)
-    for n in [30, 31, 32, 33, 34]:
+    for n in [30, 31, 32]:
         tstart = time.perf_counter()
         fib(n)
         tstop = time.perf_counter()
@@ -122,10 +135,23 @@ def fibtiming(fib):
     return times
 
 
+def exchange(a, coins):
+    if a == 0:
+        return 1
+    if a < 0:
+        return 0
+    if len(coins) == 0:
+        return 0
+
+    return exchange(a, coins[1:]) + exchange(a - coins[0], coins)
+
+
 def main():
     """ Demonstates my implementations """
     # Write your demonstration code here
-    print(power(3,4))
+    print(f"exchange: {exchange(10, [1, 2])}")
+    print(power(3, 4))
+    print(power_fast(3, -4))
     print(multiply(2, 2))
     print(divide(10, 2))
     print(harmonic(4))
@@ -134,13 +160,12 @@ def main():
     print(reverse("programmeringsteknik 2"))
     print(largest([0, 3, 2, 3, 4, 95, 3]))
     print('count: ', count(4, [4, 4, 3, 2, [4, 3, [3, 4]], [0, 1, 4]]))
-    print(zippa([1,3,5,7,9,11],[2,4,6,8,10]))
+    print(zippa([1, 3, 5, 7, 9, 11], [2, 4, 6, 8, 10]))
     print(bricklek('f', 't', 'h', 2))
 
     ###Exercise 16
     # the time it takes to move n tiles is given by t(n) = 2^n-1
-    print(2 ** 50 - 1, 'seconds which equals', (2 ** 50-1) / 3600 / 24 // 365, 'years')
-
+    print(2 ** 50 - 1, 'seconds which equals', (2 ** 50 - 1) / 3600 / 24 // 365, 'years')
 
     ###Exercise 17
     # Jag verifierade att tiden växt med 1.618^n genom att skapa funktionen fibtiming().
@@ -161,17 +186,15 @@ def main():
     c_merge = 1 / 3000
     c_ins = 1 / 10 ** 6
 
-    t_merge_6 = c_merge * 10 ** 6 * log(10 ** 6) #nlog(n)
-    t_ins_6 = c_ins * (10**6)**2 #n^2
-    print("merge sort for n = 10^6:", t_merge_6/3600, 'hours')
-    print("insertion sort for n = 10^6:", t_ins_6/3600/24, 'days')
+    t_merge_6 = c_merge * 10 ** 6 * log(10 ** 6)  # nlog(n)
+    t_ins_6 = c_ins * (10 ** 6) ** 2  # n^2
+    print("merge sort for n = 10^6:", t_merge_6 / 3600, 'hours')
+    print("insertion sort for n = 10^6:", t_ins_6 / 3600 / 24, 'days')
 
     t_merge_9 = c_merge * 10 ** 9 * log(10 ** 9)  # nlog(n)
     t_ins_9 = c_ins * (10 ** 9) ** 2  # n^2
-    print("merge sort for n = 10^9",t_merge_9 / 3600 / 24, 'days')
-    print("insertion sort for n = 10^9",t_ins_9 / 3600 / 24 / 365, 'years')
-
-
+    print("merge sort for n = 10^9", t_merge_9 / 3600 / 24, 'days')
+    print("insertion sort for n = 10^9", t_ins_9 / 3600 / 24 / 365, 'years')
 
 
 if __name__ == "__main__":
